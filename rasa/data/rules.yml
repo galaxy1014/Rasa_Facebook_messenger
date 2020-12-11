@@ -1,13 +1,177 @@
 version: "2.0"
 
 rules:
-
-- rule: Say goodbye anytime the user says goodbye
+- rule: respond to asking_agrees
   steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - intent: asking_agree
+  - action: utter_asking_agree
 
-- rule: Say 'I am a bot' anytime the user challenges
+- rule: respond to boast
   steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
+    - intent: boast
+    - action: utter_boast
+
+- rule: respond to complain
+  steps:
+    - intent: complain
+    - action: utter_complain
+
+- rule: respond to indifference
+  steps:
+    - intent: indifference
+    - action: utter_indifference
+
+- rule: respond to suggest
+  steps:
+    - intent: suggest
+    - action: utter_suggest
+
+- rule: respond to movie
+  steps:
+    - intent: ask_movie
+    - action: action_movie
+  wait_for_user_input: false
+
+- rule: respond to sport
+  steps:
+    - intent: ask_sport
+    - action: action_sport
+  wait_for_user_input: false
+
+- rule: respond to person
+  steps:
+    - intent: ask_person
+    - action: action_person
+  wait_for_user_input: false
+
+- rule: respond to music
+  steps:
+    - intent: ask_music
+    - action: action_music
+  wait_for_user_input: false
+
+- rule: respond to place
+  steps:
+    - intent: ask_place
+    - action: action_place
+  wait_for_user_input: false
+
+- rule: respond to diner
+  steps:
+    - intent: ask_diner
+    - action: action_diner
+  wait_for_user_input: false
+
+- rule: respond to travel
+  steps:
+    - intent: ask_travel
+    - action: action_travel
+  wait_for_user_input: false
+
+- rule: respond to symptom
+  steps:
+    - intent: ask_symptom
+    - action: action_symptom
+  wait_for_user_input: false
+
+
+- rule: respond to cloth
+  steps:
+    - intent: ask_cloth
+    - action: action_cloth
+  wait_for_user_input: false
+
+
+- rule: respond to nation
+  steps:
+    - intent: ask_nation
+    - action: action_nation
+  wait_for_user_input: false
+
+- rule: respond to hobby
+  steps:
+    - intent: ask_hobby
+    - action: action_hobby
+  wait_for_user_input: false
+
+
+- rule: respond to book
+  steps:
+    - intent: ask_book
+    - action: action_book
+  wait_for_user_input: false
+
+- rule: respond to disease
+  steps:
+    - intent: ask_disease
+    - action: action_disease
+  wait_for_user_input: false
+
+- rule: respond to animal
+  steps:
+    - intent: ask_animal
+    - action: action_animal
+  wait_for_user_input: false
+
+- rule: respond to job
+  steps:
+    - intent: ask_job
+    - action: action_job
+  wait_for_user_input: false
+
+- rule: respond to appraise
+  steps:
+    - intent: appraise
+    - action: utter_appraise
+
+- rule: activate userinfo form
+  steps:
+    - intent: request_userinfo   # intent that triggers form activation
+    - action: userinfo_form     # run the form
+    - active_loop: userinfo_form # this form is active
+
+- rule: de-activate userinfo form
+  condition:
+    - active_loop: userinfo_form
+  steps:
+    - intent: stop
+    - action: action_deactivate_loop
+    - active_loop: null
+    - action: utter_active_stop
+
+- rule: userinfo submit form
+  condition:
+  - active_loop: userinfo_form   # this form must be active
+  steps:
+    - action: userinfo_form      # run the form
+    - active_loop: null            # the form is no longer active because it has been filled
+    - action: utter_submit         # action to take after the form is complete
+    - action: utter_slots_values   # action to take after the form is complete
+
+- rule: userinfo form unhappy path
+  condition:
+  - active_loop: userinfo_form
+  steps:
+  - intent: explain
+  - action: utter_explain
+  - action: userinfo_form
+  - active_loop: userinfo_form
+
+- rule: activate botinfo form
+  steps:
+    - intent: request_botinfo   # intent that triggers form activation
+    - action: botinfo_form     # run the form
+    - active_loop: botinfo_form # this form is active
+
+- rule: botinfo submit form
+  condition:
+  - active_loop: botinfo_form   # this form must be active
+  steps:
+    - action: botinfo_form      # run the form
+    - active_loop: null            # the form is no longer active because it has been filled
+    - action: utter_bot_submit         # action to take after the form is complete
+
+- rule: Ask the user to rephrase whenever they send a message with low NLU confidence
+  steps:
+    - intent: nlu_fallback
+    - action: utter_asking_rephrase
