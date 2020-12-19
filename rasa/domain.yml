@@ -23,8 +23,11 @@ responses:
   - text: "좋아하지 마셈. 이제 안좋아질거임"
 
   utter_affirm:
-  - text: "ㅋㅋㅋㅋㅋㅋㅋㅋㅋ ㅄ"
-
+  - text: "오고싶을 때 오시죠"
+  - text: "네 진짜루요"
+  - text: "글쿤용"
+  - text: "당근"
+  - text: "예예"
 
   utter_goodbye:
   - text: "ㅂㅂ"
@@ -48,8 +51,9 @@ responses:
   utter_asking_rephrase:
   - text: "이해가 잘 안된다"
 
-
-
+  utter_deny:
+    - text: "아니다 이 악마야"
+    - text: "아니욥"
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
